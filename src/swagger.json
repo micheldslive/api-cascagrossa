@@ -12,7 +12,7 @@
         "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
       }
     },
-    "host": "api-cascagrossa.heroku.app",
+    "host": "api-cascagrossa.herokuapp.com",
     "basePath": "/",
     "tags": [
       {
