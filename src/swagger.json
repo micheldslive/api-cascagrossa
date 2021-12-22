@@ -1,0 +1,540 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Bem vindo a REST-API Casca Grossa, API do projeto Casca Grossa Shop. Para consultar mais informações, acesse nossa documentação abaixo",
+      "version": "1.0.0",
+      "title": "API - Casca Grossa",
+      "contact": {
+        "email": "micheldslive@gmail.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "host": "api-cascagrossa.heroku.app",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Produtos, Categorias e Imagens",
+        "description": "Contem todos os Produtos e suas respectivas categorias / imagens"
+      }
+    ],
+    "schemes": ["https"],
+    "paths": {
+      "/produtos": {
+        "post": {
+          "tags": ["produtos"],
+          "summary": "Cria uma novo produto",
+          "description": "Cria uma novo produto e o adiciona da base de dados",
+          "operationId": "criaProduto",
+          "produces": ["application/json"],
+          "responses": {
+            "201": {
+              "description": "Produto criado com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Produtos"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        },
+        "get": {
+          "tags": ["produtos"],
+          "summary": "Busca todos os produtos",
+          "description": "Busca todos os Produtos na base de dados",
+          "operationId": "buscaProduto",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Produtos retornados com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Produtos"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/produtos/categorias/{Id}": {
+        "get": {
+          "tags": ["produtos"],
+          "summary": "Busca todos os produtos por categoria",
+          "description": "Busca todos os produtos existentes baseado no parametro Id da categoria",
+          "operationId": "buscaProdutoPorCategoria",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "categoriaid",
+              "in": "path",
+              "description": "ID da categoria no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Produtos por categoria retornados com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/ProdutosPorCategoria"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/produtos/{Id}/": {
+        "get": {
+          "tags": ["produtos"],
+          "summary": "Busca os produtos pelo Id",
+          "description": "Busca de produto pelo Id de acordo com o parametro inserido na URL",
+          "operationId": "buscaProdutoId",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "produtoid",
+              "in": "path",
+              "description": "ID da categoria no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Produto retornado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Produtos"
+              }
+            },
+            "404": {
+              "description": "Produto não encontrado"
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        },
+        "put": {
+          "tags": ["produtos"],
+          "summary": "Modifica o produto pelo Id",
+          "description": "Modifica o produto pelo Id de acordo com o parametro inserido na URL",
+          "operationId": "modificaProduto",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "produtoid",
+              "in": "path",
+              "description": "ID do produto no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Produto alterado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Produtos"
+              }
+            },
+            "404": {
+              "description": "Produto não encontrado"
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["produtos"],
+          "summary": "Exclui o produto pelo Id",
+          "description": "Exclui o produto pelo Id de acordo com o parametro inserido na URL",
+          "operationId": "excluiProduto",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "produtoid",
+              "in": "path",
+              "description": "ID do produto no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Produto deletado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Produtos"
+              }
+            },
+            "404": {
+              "description": "Assinatura não encontrada"
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/categorias": {
+        "post": {
+          "tags": ["categorias"],
+          "summary": "Adiciona uma nova categoria a coleção",
+          "description": "Adiciona uma nova categoria na base de dados",
+          "operationId": "adicionaCategoria",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Categoria Criada com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Categorias"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        },
+        "get": {
+          "tags": ["categorias"],
+          "summary": "Busca todas as categorias das coleção",
+          "description": "Busca todoas as de categorias existentes na base de dados",
+          "operationId": "buscaCategoria",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Categorias retornadas com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Categorias"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/categorias/produtos": {
+        "get": {
+          "tags": ["categorias"],
+          "summary": "Busca todas as categorias e seus respectivos produtos",
+          "description": "Busca todoas as de categorias e seus respectivos produtos existentes na base de dados",
+          "operationId": "buscaCategoriaProdutos",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Categorias retornadas com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/categorias/produtos"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/categorias/{Id}": {
+        "put": {
+          "tags": ["categorias"],
+          "summary": "Modifica a categoria pelo Id",
+          "description": "Modifica uma categoria de acordo com o parametro colocado no Id",
+          "operationId": "modificaCategoria",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "categoriaid",
+              "in": "path",
+              "description": "ID da categoria no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Categoria modificada com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Categorias"
+              }
+            },
+            "404": {
+              "description": "Categoria não encontrada"
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["categorias"],
+          "summary": "Exlcui a categoria pelo Id",
+          "description": "Exclui uma categoria de acordo com o parametro colocado no Id",
+          "operationId": "excluiCategoria",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "categoriaid",
+              "in": "path",
+              "description": "ID da categoria no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Categoria excluida com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Categorias"
+              }
+            },
+            "404": {
+              "description": "Categoria não encontrada"
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/imagens": {
+        "post": {
+          "tags": ["imagens"],
+          "summary": "Adiciona uma nova imagem a coleção",
+          "description": "Adiciona uma nova imagem na base de dados",
+          "operationId": "adicionaImagem",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Imagem Criada com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Imagens"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        },
+        "get": {
+          "tags": ["imagens"],
+          "summary": "Busca todas as imagens das coleção",
+          "description": "Busca todoas as de imagens existentes na base de dados",
+          "operationId": "buscaImagem",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Imagens retornadas com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Imagens"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/imagens/produtos": {
+        "get": {
+          "tags": ["imagens"],
+          "summary": "Busca todas as imagens e seus respectivos produtos",
+          "description": "Busca todoas as de imagens e seus respectivos produtos existentes na base de dados",
+          "operationId": "buscaImagemProdutos",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Imagens retornadas com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/imagens/produtos"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      },
+      "/imagens/{Id}": {
+        "put": {
+          "tags": ["imagens"],
+          "summary": "Modifica a imagem pelo Id",
+          "description": "Modifica uma imagem de acordo com o parametro colocado no Id",
+          "operationId": "modificaImagem",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "imgid",
+              "in": "path",
+              "description": "ID da imagem no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Imagem modificada com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Imagens"
+              }
+            },
+            "404": {
+              "description": "Imagem não encontrada"
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["imagens"],
+          "summary": "Exlcui a imagem pelo Id",
+          "description": "Exclui uma imagem de acordo com o parametro colocado no Id",
+          "operationId": "excluiImagem",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "imgid",
+              "in": "path",
+              "description": "ID da imagem no banco de dados",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Imagem excluida com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Imagens"
+              }
+            },
+            "404": {
+              "description": "Imagem não encontrada"
+            },
+            "500": {
+              "description": "Erro interno no servidor"
+            }
+          }
+        }
+      }
+
+    },
+    "definitions": {
+      "Produtos": {
+        "type": "object",
+        "properties": {
+          "produtoid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "old": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoriaid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mark": {
+            "type": "string"
+          },
+          "condition": {
+            "type": "string"
+          },
+          "shortDesc": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "inCart": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Categorias": {
+        "type": "object",
+        "properties": {
+          "categoriaid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoria": {
+            "type": "string"
+          }
+        }
+      },
+      "Imagens": {
+        "type": "object",
+        "properties": {
+          "imgid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "url": {
+            "type": "string"
+          },
+          "produtoid": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    }
+  }
+  
