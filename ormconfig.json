@@ -5,7 +5,7 @@
    "username": "bdfd9801a235de",
    "password": "c9cdecc1",
    "database": "heroku_d5722fba5ef4067",
-   "synchronize": false,
+   "synchronize": true,
    "logging": false,
    "entities": [
       "src/entity/**/*.ts"

@@ -13,8 +13,8 @@ import { Categorias } from "./Categorias";
 @Index("categoriaid", ["categoriaid"], {})
 @Entity("produtos", { schema: "cascagrossa" })
 export class Produtos {
-  @PrimaryGeneratedColumn({ type: "int", name: "produtoid" })
-  produtoid: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
+  id: number;
 
   @Column("varchar", { name: "name", length: 255 })
   name: string;
