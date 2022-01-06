@@ -1,0 +1,9 @@
+version: '3'
+services:
+  api:
+    image: node
+    container_name: 'api'
+    ports:
+      - '3500:3500'
+    expose:
+      - '3500'
