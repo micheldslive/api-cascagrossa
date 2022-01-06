@@ -3,8 +3,6 @@
    "version": "0.0.1",
    "description": "API do projeto Casca Grossa.",
    "license": "MIT",
-   "devDependencies": {
-   },
    "dependencies": {
       "@types/node": "^8.0.29",
       "@types/swagger-ui-express": "^4.1.3",
