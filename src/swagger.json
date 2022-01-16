@@ -99,7 +99,7 @@
           }
         }
       },
-      "/produtos/{Id}/": {
+      "/produtos/{Id}": {
         "get": {
           "tags": ["produtos"],
           "summary": "Busca os produtos pelo Id",
