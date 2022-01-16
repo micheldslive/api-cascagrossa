@@ -17,7 +17,7 @@ export default {
     try {
       const { id } = req.params;
       const produtos = await getRepository(Produtos).find({
-        where: { id },
+        where: { produtoid: id },
         relations: ['imagens', 'categoria']
       });
       return res.status(201).json(produtos);
