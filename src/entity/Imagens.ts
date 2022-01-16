@@ -8,8 +8,7 @@ import {
 } from "typeorm";
 import { Produtos } from "./Produtos";
 
-@Index("id", ["produtoid"], {})
-@Entity("imagens", { schema: "cascagrossa" })
+@Entity("imagens")
 export class Imagens {
   @PrimaryGeneratedColumn({ type: "int", name: "imgid" })
   imgid: number;
@@ -25,6 +24,6 @@ export class Imagens {
     (produtos) => produtos.imagens,
     { onDelete: "RESTRICT", onUpdate: "RESTRICT" }
   )
-  @JoinColumn([{ name: "produtoid", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "produtoid", referencedColumnName: "produtoid" }])
   produto: Produtos;
 }

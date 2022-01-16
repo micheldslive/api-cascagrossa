@@ -10,11 +10,10 @@ import {
 import { Imagens } from "./Imagens";
 import { Categorias } from "./Categorias";
 
-@Index("categoriaid", ["categoriaid"], {})
-@Entity("produtos", { schema: "cascagrossa" })
+@Entity("produtos")
 export class Produtos {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "produtoid" })
+  produtoid: number;
 
   @Column("varchar", { name: "name", length: 255 })
   name: string;
